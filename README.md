@@ -11,3 +11,7 @@ Steps for uploading to heroku
 * locally I need to uninstall bcrypt and reinstall with --version ruby option
 
 * coffee-script-source needs to be verison 1.8.0 to work on windows
+
+* puma webserver used in production
+
+* sqlite used in all environments
