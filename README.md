@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Steps for uploading to heroku
 
-Things you may want to cover:
+1. rails test
+2. git push
+3. git push heroku
+4. if any migrations
+    * heroku db:migrate
 
-* Ruby version
+* locally I need to uninstall bcrypt and reinstall with --version ruby option
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* coffee-script-source needs to be verison 1.8.0 to work on windows
