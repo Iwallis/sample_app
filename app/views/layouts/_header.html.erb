@@ -2,12 +2,12 @@
 <!-- navbar-inverse makes it the dark colour as default is light -->
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "sample app", '#', id: "logo" %>
+    <%= link_to "Simple Logbook", root_path, id: "logo" %>
     <nav>
       <!-- navbar-right tells it to act as a navbar on the right hand side -->
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   '#' %></li>
-        <li><%= link_to "Help",   '#' %></li>
+        <li><%= link_to "Home",   root_path %></li>
+        <li><%= link_to "Help",   help_path %></li>
         <li><%= link_to "Log in", '#' %></li>
       </ul>
     </nav>
