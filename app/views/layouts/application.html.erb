@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render 'layouts/rails_default' %>    
+    <!-- normal header items (stylesheet, scripts, etc...) -->
+    <%= render 'layouts/rails_default' %>
+    <!-- IE compatibility for ie9 and earlier -->
     <%= render 'layouts/shim' %>
   </head>
 
@@ -11,5 +13,7 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
+    <!-- below displays debug info only if rails is in development mode -->
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
