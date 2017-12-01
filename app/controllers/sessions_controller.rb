@@ -7,7 +7,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # log_in and remember function is found in the sessions_helper
       log_in user
-      remember user
+      # if remember_me is checked, don't log user out after browser close
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination' # Not quite right!
@@ -17,7 +18,8 @@ class SessionsController < ApplicationController
 
   def destroy
     flash[:success] = 'Successfully logged out'
-    log_out log_out if logged_in?
+    log_out if logged_in?
     redirect_to root_url
   end
+
 end
