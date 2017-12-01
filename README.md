@@ -15,3 +15,6 @@ Steps for uploading to heroku
 * puma webserver used in production
 
 * sqlite used in all environments
+
+* to make a new branch
+  * git checkout -b branch-name
