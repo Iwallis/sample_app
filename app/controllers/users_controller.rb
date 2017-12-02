@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
 
   def new
@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def index
+    @users = User.all
   end
 
   def show
@@ -57,11 +61,13 @@ class UsersController < ApplicationController
 
     # Confirms a logged-in user.
     def logged_in_user
+
       unless logged_in?
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+
     end
 
     # Confirms the correct user.
