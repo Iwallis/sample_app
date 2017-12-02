@@ -10,9 +10,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      log_in @user
-      redirect_to @user
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
       # equivalent to redirect_to user_url(@user)
     else
       render 'new'
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     end
 
     # misc.
-    
+
     # Confirms an admin user.
     def admin_user
       redirect_to(root_url) unless current_user.admin?
