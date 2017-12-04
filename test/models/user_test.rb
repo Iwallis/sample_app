@@ -76,4 +76,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
 
+  test "associated microposts should be destroyed" do
+    @user.save
+    @user.flights.create!( date: 2.days.ago,
+                          aircraft_type: 'C-172',
+                          aircraft_ident: 'GBMO',
+                          pic: 'Iain Wallis',
+                          day_hours: 1.6,
+                          user_id: @user.id)
+    assert_difference 'Flight.count', -1 do
+      @user.destroy
+    end
+  end
+
 end

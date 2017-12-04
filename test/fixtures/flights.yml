@@ -1,0 +1,46 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: <%= 3.years.ago %>
+  aircraft_type: MyString
+  aircraft_ident: MyString
+  pic: MyString
+  sic: MyString
+  day_hours: 9.99
+  user: User.first
+
+two:
+  date: <%= 10.years.ago %>
+  aircraft_type: MyString
+  aircraft_ident: MyString
+  pic: MyString
+  sic: MyString
+  day_hours: 9.99
+  user: User.first
+
+three:
+  date: <%= 5.days.ago %>
+  aircraft_type: MyString
+  aircraft_ident: MyString
+  pic: MyString
+  sic: MyString
+  day_hours: 9.99
+  user: User.first
+
+four:
+  date: <%= 6.months.ago %>
+  aircraft_type: MyString
+  aircraft_ident: MyString
+  pic: MyString
+  sic: MyString
+  day_hours: 9.99
+  user: User.first
+
+most_recent:
+  date: <%= Time.zone.now %>
+  aircraft_type: MyString
+  aircraft_ident: MyString
+  pic: MyString
+  sic: MyString
+  day_hours: 9.99
+  user: User.first
