@@ -22,5 +22,8 @@ Rails.application.routes.draw do
   # the url the activation email will send
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  # since flights is only manipulated throught the users show page, only create
+  # and destroy are needed.
+  resources :microposts,          only: [:create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -7,7 +7,7 @@ one:
   pic: MyString
   sic: MyString
   day_hours: 9.99
-  user: User.first
+  user: :iain
 
 two:
   date: <%= 10.years.ago %>
@@ -16,7 +16,7 @@ two:
   pic: MyString
   sic: MyString
   day_hours: 9.99
-  user: User.first
+  user: :iain
 
 three:
   date: <%= 5.days.ago %>
@@ -25,7 +25,7 @@ three:
   pic: MyString
   sic: MyString
   day_hours: 9.99
-  user: User.first
+  user: :iain
 
 four:
   date: <%= 6.months.ago %>
@@ -34,7 +34,7 @@ four:
   pic: MyString
   sic: MyString
   day_hours: 9.99
-  user: User.first
+  user: :iain
 
 most_recent:
   date: <%= Time.zone.now %>
@@ -43,4 +43,4 @@ most_recent:
   pic: MyString
   sic: MyString
   day_hours: 9.99
-  user: User.first
+  user: :iain
