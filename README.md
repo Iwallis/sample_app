@@ -30,7 +30,8 @@ Steps for uploading to heroku
 
 * to set up email in production
   1. `heroku addons:create sendgrid:starter` (need to verify account on heroku)
-  2. ``` ruby
+  2. Add this to config file
+     ``` ruby
      Rails.application.configure do
      .
      .
