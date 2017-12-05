@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: <%= 3.years.ago %>
+  date: "2016/10/12"
   aircraft_type: MyString
   aircraft_ident: MyString
   pic: MyString

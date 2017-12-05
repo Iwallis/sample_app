@@ -34,7 +34,13 @@ idents = ['GBMO', 'GSDZ', 'GPFW', 'GTQQ', 'GKMY']
   type = 'c-172'
   ident = idents[r.rand(0..4)]
   pic = 'Self'
-  day_hours = r.rand(0.3...4.5)
+  day_hours = r.rand(0.8..1.3)
+  random_number = r.rand(1...10)
+  if random_number<7
+    day_hours += r.rand(-0.2..0.2)
+  else
+    day_hours += r.rand(-0.3..3.2)
+  end
   user.flights.create!( date: date,
                         aircraft_type: type,
                         aircraft_ident: ident,

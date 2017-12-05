@@ -14,8 +14,8 @@ class UsersLogbookTest < ActionDispatch::IntegrationTest
     assert_select 'h1', text: @user.name
     assert_select 'h1>img.gravatar'
     assert_match @user.flights.count.to_s, response.body
-    @user.flights.paginate(page: 1).each do |micropost|
-      assert_match flight.content, response.body
+    @user.flights.paginate(page: 1).each do |flight|
+      assert_match flight.date.year.to_s + '/' +  flight.date.month.to_s + '/' +  flight.date.day.to_s, response.body
     end
   end
 end

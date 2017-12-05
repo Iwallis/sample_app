@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @flights = @user.flights.paginate(page: params[:page])
+    @flights = @user.flights.paginate(page: params[:page], :per_page => 15)
     redirect_to root_url and return unless @user.activated
     # uncomment below to have a debugging console added when using server
     # debugger
@@ -61,17 +61,6 @@ class UsersController < ApplicationController
 
   private
     # Before filters
-
-    # Confirms a logged-in user.
-    def logged_in_user
-
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-
-    end
 
     # Confirms the correct user.
     def correct_user
