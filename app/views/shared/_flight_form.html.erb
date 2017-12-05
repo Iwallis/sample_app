@@ -1,12 +1,25 @@
 <%= form_for(@flight) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+
+    <%= f.label :date %>
     <%= f.date_field :date %>
+
+    <%= f.label :aircraft_type %>
     <%= f.text_field :aircraft_type %>
+
+    <%= f.label :aircraft_ident %>
     <%= f.text_field :aircraft_ident %>
+
+    <%= f.label :pic %>
     <%= f.text_field :pic %>
+
+    <%= f.label :sic %>
     <%= f.text_field :sic %>
-    <%= f.text_field :day_hours %>
+
+    <%= f.label :day_hours %>
+    <%= f.number_field :day_hours %>
+
   </div>
   <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>

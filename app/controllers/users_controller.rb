@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @flights = @user.flights.paginate(page: params[:page], :per_page => 15)
+    @flight = current_user.flights.build
     redirect_to root_url and return unless @user.activated
     # uncomment below to have a debugging console added when using server
     # debugger

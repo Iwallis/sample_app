@@ -5,11 +5,16 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
-        <p class="lead smaller"><small> License Number: 507319 </small> </p>
+        <p class="lead smaller"><small> License Number: 999999 </small> </p>
       </h1>
     </section>
   </aside>
   <div>
     <%= render 'flight_table' %>
+  </div>
+  <div class='form add-flight'>
+    <section class="flight_form">
+      <%= render 'shared/flight_form' %>
+    </section>
   </div>
 </div>
