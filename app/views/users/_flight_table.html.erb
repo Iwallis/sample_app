@@ -1,0 +1,19 @@
+<% if @user.flights.any? %>
+  <table class="table .table-sm table-hover table-striped table-bordered table-responsive flights" %>
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Type</th>
+        <th scope="col">ident</th>
+        <th scope="col">Pilot In Command</th>
+        <th scope="col">Co-pilot/Student</th>
+        <th scope="col">Hours Day</th>
+        <th scope="col">Actions</th>
+      </tr>
+  </thead>
+  <tbody>
+    <%= render @flights %>
+  </tbody>
+  <%= will_paginate @flights %>
+</table>
+<% end %>

@@ -5,13 +5,22 @@ class FlightsController < ApplicationController
     @flight = current_user.flights.build(flight_params)
     if @flight.save
       flash[:success] = "Flight created!"
-      redirect_to root_url
+      redirect_to current_user
     else
-      render 'static_pages/home'
+      render current_user
     end
   end
 
   def destroy
+    @flight = Flight.find(params[:id])
+    if current_user == @flight.user
+      @flight.destroy
+      flash[:success] = "Flight deleted"
+      # redirect to the previous url or if there isnt one, go to home page
+    else
+      flash[:danger] = "you don't own that flight"
+    end
+    redirect_to request.referrer || root_url
   end
 
   private

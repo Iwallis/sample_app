@@ -1,4 +1,3 @@
-<!-- turn this into a modal! -->
 <tr id="flight-<%= flight.id %>">
   <td class="date"><%= flight.date.year.to_s + '/' +  flight.date.month.to_s + '/' +  flight.date.day.to_s %></td>
   <td class="aircraft-type"><%= flight.aircraft_type %></td>
@@ -6,4 +5,9 @@
   <td class="pic"><%= flight.pic %></td>
   <td class="sic"><%= flight.sic %></td>
   <td class="day-hours"><%= flight.day_hours %></td>
+  <td class="actions"><%= link_to "delete",
+                          flight,
+                          method: :delete,
+                          data: { confirm: "You sure?" } %>
+  </td>
 </tr>

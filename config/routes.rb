@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   # since flights is only manipulated throught the users show page, only create
   # and destroy are needed.
-  resources :flights,          only: [:create, :destroy]
+  resources :flights,             only: [:create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
