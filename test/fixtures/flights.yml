@@ -24,7 +24,7 @@ three:
   aircraft_ident: MyString
   pic: MyString
   sic: MyString
-  day_hours: 9.99
+  night_hours: 9.99
   user: :iain
 
 four:
@@ -33,7 +33,7 @@ four:
   aircraft_ident: MyString
   pic: MyString
   sic: MyString
-  day_hours: 9.99
+  night_hours: 9.99
   user: :iain
 
 most_recent:

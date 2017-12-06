@@ -47,11 +47,35 @@ class FlightTest < ActiveSupport::TestCase
 
   test "should have at least 0.1 hours somewhere" do
     @flight.day_hours = 0
+    @flight.night_hours = 0
+    @flight.sim_hours = 0
     assert_not @flight.valid?
   end
 
-  test "can't fly for negative hours" do
+  test "can't fly day for negative hours" do
     @flight.day_hours = -0.1
+    assert_not @flight.valid?
+  end
+
+  test "can't fly night for negative hours" do
+    @flight.night_hours = -0.1
+    assert_not @flight.valid?
+  end
+
+  test "can't fly sim for negative hours" do
+    @flight.sim_hours = -0.1
+    assert_not @flight.valid?
+  end
+
+  test "can't be pic if dual" do
+    @flight.pic = 'self'
+    @flight.is_dual = true
+    assert_not @flight.valid?
+  end
+
+  test "can't be sic if not dual" do
+    @flight.sic = 'self'
+    @flight.is_dual = false
     assert_not @flight.valid?
   end
 

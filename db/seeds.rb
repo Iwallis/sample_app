@@ -29,22 +29,53 @@ end
 user = User.first
 r = Random.new
 idents = ['GBMO', 'GSDZ', 'GPFW', 'GTQQ', 'GKMY']
-60.times do
+100.times do
   date = r.rand(2010...2017).to_s + '/' + r.rand(1..12).to_s + '/' + r.rand(1..30).to_s
-  type = 'c-172'
+  type = 'C-172'
   ident = idents[r.rand(0..4)]
   pic = 'Self'
-  day_hours = r.rand(0.8..1.3)
   random_number = r.rand(1...10)
-  if random_number<7
-    day_hours += r.rand(-0.2..0.2)
+  if random_number < 3
+    is_dual = true
+    sic = "Self"
+    pic = "Bob McBob"
+  end
+  random_number = r.rand(1...10)
+  if random_number < 3
+    is_xc = true
+    route = 'CYAB - CYZY - CYAB'
+  end
+  random_number = r.rand(1...10)
+  if random_number < 2
+    is_single_engine = false
+    type = 'PA-44'
+    ident = 'FHDP'
+  end
+  if random_number<9 # then flight is day
+    day_hours = r.rand(0.8..1.3)
+    random_number = r.rand(1...10)
+    if random_number<7
+      day_hours += r.rand(-0.2..0.2)
+    else
+      day_hours += r.rand(-0.3..3.2)
+    end
   else
-    day_hours += r.rand(-0.3..3.2)
+    night_hours = r.rand(0.8..1.3)
+    random_number = r.rand(1...10)
+    if random_number<7
+      night_hours += r.rand(-0.2..0.2)
+    else
+      night_hours += r.rand(-0.3..3.2)
+    end
   end
   user.flights.create!( date: date,
                         aircraft_type: type,
                         aircraft_ident: ident,
                         pic: pic,
-                        day_hours: day_hours
+                        sic: sic,
+                        day_hours: day_hours,
+                        night_hours: night_hours,
+                        is_dual: is_dual,
+                        is_single_engine: is_single_engine
   )
 end

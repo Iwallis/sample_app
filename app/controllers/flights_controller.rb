@@ -2,12 +2,14 @@ class FlightsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
 
   def create
+    @user = current_user
     @flight = current_user.flights.build(flight_params)
+    @flights = current_user.flights.paginate(page: params[:page], :per_page => 15)
     if @flight.save
       flash[:success] = "Flight created!"
       redirect_to current_user
     else
-      render current_user
+      render 'users/show'
     end
   end
 

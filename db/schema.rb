@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20171204002111) do
     t.string "pic"
     t.string "sic"
     t.decimal "day_hours", precision: 10, scale: 1
+    t.decimal "night_hours", precision: 10, scale: 1
+    t.boolean "is_single_engine", default: true
+    t.boolean "is_xc", default: false
+    t.boolean "is_dual", default: false
+    t.decimal "hood_hours", precision: 10, scale: 1
+    t.decimal "imc_hours", precision: 10, scale: 1
+    t.decimal "sim_hours", precision: 10, scale: 1
+    t.integer "ifr_apprs"
+    t.string "route"
+    t.text "comments"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
