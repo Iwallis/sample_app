@@ -32,4 +32,100 @@ class Flight < ApplicationRecord
     end
   end
 
+  def single_engine_day_pic
+    if !is_dual && is_single_engine && !day_hours.nil?
+      if day_hours > 0.0
+        return day_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def single_engine_day_dual
+    if is_dual && is_single_engine && !day_hours.nil?
+      if day_hours > 0.0
+        return day_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def single_engine_night_pic
+    if !is_dual && is_single_engine && !night_hours.nil?
+      if night_hours > 0.0
+        return night_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def single_engine_night_dual
+    if is_dual && is_single_engine && !night_hours.nil?
+      if night_hours > 0.0
+        return night_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def multi_engine_day_pic
+    if !is_dual && !is_single_engine && !day_hours.nil?
+      if day_hours > 0.0
+        return day_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def multi_engine_day_dual
+    if is_dual && !is_single_engine && !day_hours.nil?
+      if day_hours > 0.0
+        return day_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def multi_engine_night_pic
+    if !is_dual && !is_single_engine && !night_hours.nil?
+      if night_hours > 0.0
+        return night_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
+  def multi_engine_night_dual
+    if is_dual && !is_single_engine && !night_hours.nil?
+      if night_hours > 0.0
+        return night_hours
+      else
+        return ''
+      end
+    else
+      return ''
+    end
+  end
+
 end

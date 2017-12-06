@@ -14,9 +14,9 @@ User.create!(name:  "Iain Wallis",
              activated: true,
              activated_at: Time.zone.now)
 
-99.times do |n|
+10.times do |n|
   name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
+  email = "example-#{n+1}@email.com"
   password = "password"
   User.create!(name:  name,
                email: email,
@@ -28,12 +28,15 @@ end
 
 user = User.first
 r = Random.new
-idents = ['GBMO', 'GSDZ', 'GPFW', 'GTQQ', 'GKMY']
-100.times do
+idents = ['GBMO', 'GSDZ', 'GPFW', 'GTQQ', 'GKMY', 'GJZB']
+300.times do
   date = r.rand(2010...2017).to_s + '/' + r.rand(1..12).to_s + '/' + r.rand(1..30).to_s
   type = 'C-172'
   ident = idents[r.rand(0..4)]
   pic = 'Self'
+  is_xc = false
+  is_dual = false
+  is_single_engine = true
   random_number = r.rand(1...10)
   if random_number < 3
     is_dual = true

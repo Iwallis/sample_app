@@ -3,34 +3,34 @@
   <td class="aircraft-type"><%= flight.aircraft_type %></td>
   <td class="aircraft-ident"><%= flight.aircraft_ident %></td>
   <td class="pic"><%= flight.pic %></td>
-  <td class="sic"><%= flight.sic %></td>  
+  <td class="sic"><%= flight.sic %></td>
   <!-- ****** FLIGHT HOURS ****** -->
       <!-- ****** SINGLE ENGINE ****** -->
         <!-- ****** DAY PIC ****** -->
-      <td><%= !flight.is_dual && flight.is_single_engine ? 0.0 : flight.day_hours %></td>
+      <td><%= flight.single_engine_day_pic %></td>
         <!-- ****** DAY DUAL ****** -->
-      <td><%= !flight.is_dual && flight.is_single_engine ? flight.day_hours : 0.0 %></td>
+      <td><%= flight.single_engine_day_dual %></td>
         <!-- ****** NIGHT PIC ****** -->
-      <td><%= !flight.is_dual && flight.is_single_engine ? 0.0 : flight.night_hours %></td>
+      <td><%= flight.single_engine_night_pic %></td>
         <!-- ****** NIGHT DUAL ****** -->
-      <td><%= !flight.is_dual && flight.is_single_engine ? flight.night_hours : 0.0 %></td>
+      <td><%= flight.single_engine_night_dual %></td>
       <!-- ****** MULTI ENGINE ****** -->
         <!-- ****** DAY PIC ****** -->
-      <td><%= flight.is_dual && !flight.is_single_engine ? 0.0 : flight.day_hours %></td>
+      <td><%= flight.multi_engine_day_pic %></td>
         <!-- ****** DAY DUAL ****** -->
-      <td><%= flight.is_dual && !flight.is_single_engine ? flight.day_hours : 0.0 %></td>
+      <td><%= flight.multi_engine_day_dual %></td>
         <!-- ****** NIGHT PIC ****** -->
-      <td><%= flight.is_dual && !flight.is_single_engine ? 0.0 : flight.night_hours %></td>
+      <td><%= flight.multi_engine_night_pic %></td>
         <!-- ****** NIGHT DUAL ****** -->
-      <td><%= flight.is_dual && !flight.is_single_engine ? flight.night_hours : 0.0 %></td>
+      <td><%= flight.multi_engine_night_dual %></td>
       <!-- ****** INSTRUMENT ****** -->
       <td><%= flight.hood_hours %></td>
       <td><%= flight.imc_hours %></td>
       <td><%= flight.sim_hours %></td>
       <td><%= flight.ifr_apprs %></td>
       <!-- ****** CROSS COUNTRY ****** -->
-      <td><%= flight.is_xc ? flight.day_hours : 0.0 %></td>
-      <td><%= flight.is_xc ? flight.night_hours : 0.0 %></td>
+      <td><%= flight.is_xc ? flight.day_hours : "" %></td>
+      <td><%= flight.is_xc ? flight.night_hours : "" %></td>
       <td><%= flight.route %></td>
       <td><%= flight.comments %></td>
   <td class="actions"><%= link_to "delete",
