@@ -14,71 +14,119 @@ User.create!(name:  "Iain Wallis",
              activated: true,
              activated_at: Time.zone.now)
 
-10.times do |n|
-  name  = Faker::Name.name
-  email = "example-#{n+1}@email.com"
-  password = "password"
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               activated: true,
-               activated_at: Time.zone.now)
-end
-
 user = User.first
-r = Random.new
-idents = ['GBMO', 'GSDZ', 'GPFW', 'GTQQ', 'GKMY', 'GJZB']
-300.times do
-  date = r.rand(2010...2017).to_s + '/' + r.rand(1..12).to_s + '/' + r.rand(1..30).to_s
-  type = 'C-172'
-  ident = idents[r.rand(0..4)]
-  pic = 'Self'
+count = 0
+File.readlines('db/iains_log_info').each do |string|
+  info = string.split('|')
+
+  date = info[0]
+  type = info[1]
+  ident = info[2]
+  pic = info[3]
+  sic = info[4]
   is_xc = false
   is_dual = false
   is_single_engine = true
-  random_number = r.rand(1...10)
-  if random_number < 3
-    is_dual = true
-    sic = "Self"
-    pic = "Bob McBob"
-  end
-  random_number = r.rand(1...10)
-  if random_number < 3
-    is_xc = true
-    route = 'CYAB - CYZY - CYAB'
-  end
-  random_number = r.rand(1...10)
-  if random_number < 2
+
+  single_day_pic = info[5].to_f
+  single_day_sic = info[6].to_f
+  single_night_pic = info[7].to_f
+  single_night_sic = info[8].to_f
+
+  multi_day_pic = info[9].to_f
+  multi_day_sic = info[10].to_f
+  multi_night_pic = info[11].to_f
+  multi_night_sic = info[12].to_f
+
+  day_hours = single_day_pic +
+              single_day_sic +
+              multi_day_pic +
+              multi_day_sic
+
+  night_hours = single_night_pic +
+                single_night_sic +
+                multi_night_pic +
+                multi_night_sic
+
+  single_engine_hours = single_day_pic +
+                        single_day_sic +
+                        single_night_pic +
+                        single_night_sic
+
+  multi_engine_hours =  multi_day_pic +
+                        multi_day_sic +
+                        multi_night_pic +
+                        multi_night_sic
+
+  if !multi_engine_hours.blank? && multi_engine_hours > 0
     is_single_engine = false
-    type = 'PA-44'
-    ident = 'FHDP'
   end
-  if random_number<9 # then flight is day
-    day_hours = r.rand(0.8..1.3)
-    random_number = r.rand(1...10)
-    if random_number<7
-      day_hours += r.rand(-0.2..0.2)
-    else
-      day_hours += r.rand(-0.3..3.2)
-    end
-  else
-    night_hours = r.rand(0.8..1.3)
-    random_number = r.rand(1...10)
-    if random_number<7
-      night_hours += r.rand(-0.2..0.2)
-    else
-      night_hours += r.rand(-0.3..3.2)
-    end
+
+  pic_hours = single_day_pic +
+              single_night_pic +
+              multi_day_pic +
+              multi_night_pic
+
+  dual_hours = single_day_sic +
+               single_night_sic +
+               multi_day_sic +
+               multi_night_sic
+
+  if !dual_hours.blank? && dual_hours > 0
+    is_dual = true
   end
-  user.flights.create!( date: date,
-                        aircraft_type: type,
-                        aircraft_ident: ident,
-                        pic: pic,
-                        sic: sic,
-                        day_hours: day_hours,
-                        night_hours: night_hours,
-                        is_dual: is_dual,
-                        is_single_engine: is_single_engine
-  )
+
+  xc_hours = info[17].to_f +
+             info[18].to_f +
+             info[19].to_f +
+             info[20].to_f
+
+  if !xc_hours.blank? && xc_hours > 0
+    is_xc = true
+  end
+
+  imc_hours = info[13]
+  hood_hours = info[14]
+  sim_hours = info[15]
+  ifr_apprs = info[16]
+
+  route = info[23]
+  comments = info[24]
+
+  if count < 20
+    puts('single engine day PIC: ' + info[5])
+    puts('single engine day SIC: ' + info[6])
+    puts('is dual?: ' + is_dual.to_s)
+    puts('is single?: ' + is_single_engine.to_s)
+    puts("day hours: " + day_hours.to_s)
+  end
+
+
+  user.flights.create!(  date: date,
+                         aircraft_type: type,
+                         aircraft_ident: ident,
+                         pic: pic,
+                         sic: sic,
+                         day_hours: day_hours,
+                         night_hours: night_hours,
+                         is_dual: is_dual,
+                         is_single_engine: is_single_engine,
+                         is_xc: is_xc,
+                         imc_hours: imc_hours,
+                         hood_hours: hood_hours,
+                         sim_hours: sim_hours,
+                         ifr_apprs: ifr_apprs,
+                         route: route,
+                         comments: comments
+   )
+   if count == 0
+     print('|')
+   end
+   if count%10 == 0
+     print('.')
+   end
+   if count%100 == 0
+     print('|')
+   end
+   count += 1
 end

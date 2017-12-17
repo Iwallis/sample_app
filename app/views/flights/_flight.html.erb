@@ -29,8 +29,8 @@
       <td><%= flight.sim_hours %></td>
       <td><%= flight.ifr_apprs %></td>
       <!-- ****** CROSS COUNTRY ****** -->
-      <td><%= flight.is_xc ? flight.day_hours : "" %></td>
-      <td><%= flight.is_xc ? flight.night_hours : "" %></td>
+      <td><%= flight.is_xc && flight.day_hours > 0 ? flight.day_hours : "" %></td>
+      <td><%= flight.is_xc && flight.night_hours > 0? flight.night_hours : "" %></td>
       <td><%= flight.route %></td>
       <td><%= flight.comments %></td>
   <td class="actions"><%= link_to "delete",

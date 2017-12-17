@@ -1,25 +1,50 @@
-<%= form_for(@flight) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add new flight!
+</button>
 
-    <%= f.label :date %>
-    <%= f.date_field :date %>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add a New Flight</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@flight) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+          <div class="form-group">
+              <%= f.label :date, class: "col-md-2" %>
+              <%= f.date_field :date, class: "col-md-10" %>
 
-    <%= f.label :aircraft_type %>
-    <%= f.text_field :aircraft_type %>
+              <%= f.label :aircraft_type, class: "col-md-2" %>
+              <%= f.text_field :aircraft_type, class: "col-md-4" %>
 
-    <%= f.label :aircraft_ident %>
-    <%= f.text_field :aircraft_ident %>
+              <%= f.label :aircraft_ident, class: "col-md-2" %>
+              <%= f.text_field :aircraft_ident, class: "col-md-4" %>
 
-    <%= f.label :pic %>
-    <%= f.text_field :pic %>
+              <%= f.label :pic, class: "col-md-2" %>
+              <%= f.text_field :pic, class: "col-md-4" %>
 
-    <%= f.label :sic %>
-    <%= f.text_field :sic %>
+              <%= f.label :sic, class: "col-md-2" %>
+              <%= f.text_field :sic, class: "col-md-4" %>
 
-    <%= f.label :day_hours %>
-    <%= f.number_field :day_hours %>
+              <%= f.label :day_hours, class: "col-md-2" %>
+              <%= f.number_field :day_hours, step: 0.1, class: "col-md-4" %>
 
-  </div>
-  <%= f.submit "Save", class: "btn btn-primary" %>
-<% end %>
+              <%= f.label :night_hours, class: "col-md-2" %>
+              <%= f.number_field :night_hours, step: 0.1, class: "col-md-4" %>
+
+              <%= f.label :is_dual, class: "hidden" %>
+              <%= f.radio_button :is_dual, "true", value: true, class: "hide-me" %>
+              <%= f.label :is_dual_true, "Dual Flight", class: "rdo-btn btn btn-lg block" %>
+              <%= f.radio_button :is_dual, "false", value: false, class: "hide-me" %>
+              <%= f.label :is_dual_false, "Solo Flight", class: "rdo-btn btn btn-lg block" %>
+          </div>
+            <%= f.submit "Save", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

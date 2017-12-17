@@ -13,6 +13,10 @@ class FlightsController < ApplicationController
     end
   end
 
+  def action
+    this_is_a_test
+  end
+
   def destroy
     @flight = Flight.find(params[:id])
     if current_user == @flight.user
