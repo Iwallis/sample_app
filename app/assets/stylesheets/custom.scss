@@ -41,13 +41,9 @@ textarea {
 
 .block {
   text-align: center;
-  padding:auto;
-  display:block;
+  display:inline-block;
 }
 
-.radio-label {
-  text-align: center;
-}
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -256,14 +252,76 @@ input {
   background: blue;
   max-width: 200px;
 }
-input[type="radio"]:checked+label{ font-weight: bold; background: green; }
-aside {
-  textarea {
-    height: 100px;
+.cool-rdo{
+  margin-bottom: 20px;
+  
+  input[type="radio"]:checked+label{ font-weight: bold; background: green; }
+  aside {
+    textarea {
+      height: 100px;
+      margin-bottom: 5px;
+    }
+  }
+
+  input[type="radio"] {
+    // position: absolute;
     margin-bottom: 5px;
+    opacity: 0;
+    z-index: -1;
+    &:focus + label {
+      background: blue;
+    }
+  }
+  label {
+    position: relative;
+    display: inline-block;
+    background: grey;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 2px;
+    padding-left: 30px;
+    padding-right: 10px;
+    line-height: 36px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    &:hover{
+      color: green;
+    }
+  }
+
+  label::before {
+    content: " ";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #8e44ad;
+    border-radius: 4px;
+    z-index: -1;
+  }
+  input[type="radio"] + label::before {
+    border-radius: 18px;
+  }
+  /* Checked */
+  input[type="radio"]:checked + label {
+    padding-left: 10px;
+    color: #fff;
+  }
+  input[type="radio"]:checked + label::before {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #8e44ad;
+  }
+  /* Transition */
+  label,
+  label::before {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
   }
 }
-
-// .smaller {
-//   font-size: 12px;
-// }

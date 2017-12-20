@@ -37,7 +37,16 @@ class FlightsController < ApplicationController
                                       :aircraft_ident,
                                       :pic,
                                       :sic,
-                                      :day_hours)
+                                      :day_hours,
+                                      :night_hours,
+                                      :is_dual,
+                                      :is_single_engine,
+                                      :is_xc,
+                                      :hood_hours,
+                                      :imc_hours,
+                                      :sim_hours,
+                                      :route,
+                                      :comments)
     end
 
 end

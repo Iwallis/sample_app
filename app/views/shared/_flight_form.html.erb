@@ -12,11 +12,13 @@
         <h4 class="modal-title" id="myModalLabel">Add a New Flight</h4>
       </div>
       <div class="modal-body">
+
         <%= form_for(@flight) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="form-group">
+            <div>
               <%= f.label :date, class: "col-md-2" %>
-              <%= f.date_field :date, class: "col-md-10" %>
+              <%= f.date_field :date, class: "col-md-10" %>              
 
               <%= f.label :aircraft_type, class: "col-md-2" %>
               <%= f.text_field :aircraft_type, class: "col-md-4" %>
@@ -35,12 +37,46 @@
 
               <%= f.label :night_hours, class: "col-md-2" %>
               <%= f.number_field :night_hours, step: 0.1, class: "col-md-4" %>
-
+            </div>
+            <div>
+              <hr>
+            </div>
+            <div class="cool-rdo col-md-4 border">
               <%= f.label :is_dual, class: "hidden" %>
-              <%= f.radio_button :is_dual, "true", value: true, class: "hide-me" %>
-              <%= f.label :is_dual_true, "Dual Flight", class: "rdo-btn btn btn-lg block" %>
-              <%= f.radio_button :is_dual, "false", value: false, class: "hide-me" %>
-              <%= f.label :is_dual_false, "Solo Flight", class: "rdo-btn btn btn-lg block" %>
+              <%= f.radio_button :is_dual, "true", value: true %>
+              <%= f.label :is_dual_true, "Dual Flight" %>
+              <%= f.radio_button :is_dual, "false", value: false %>
+              <%= f.label :is_dual_false, "Solo Flight" %>
+            </div>
+            <div>
+              <hr>
+            </div>
+            <div class="cool-rdo col-md-4 border">
+              <%= f.label :is_single_engine, class: "hidden" %>
+              <%= f.radio_button :is_single_engine, "true", value: true %>
+              <%= f.label :is_single_engine_true, "Single Engine" %>
+              <%= f.radio_button :is_single_engine, "false", value: false %>
+              <%= f.label :is_single_engine_false, "Multi-Engine" %>
+            </div>
+            <div>
+              <hr>
+            </div>
+            <div class="cool-rdo col-md-4 border">
+              <%= f.label :is_xc, class: "hidden" %>
+              <%= f.radio_button :is_xc, "false", value: false %>
+              <%= f.label :is_xc_false, "Local" %>
+              <%= f.radio_button :is_xc, "true", value: true %>
+              <%= f.label :is_xc_true, "Cross Country" %>
+            </div>
+            <div>
+              <hr>
+            </div>
+            <div id="extras">
+              <%= f.label :route, class: "col-md-3" %>
+              <%= f.text_field :route, class: "col-md-9" %>
+              <%= f.label :comments, class: "col-md-3" %>
+              <%= f.text_area :comments, class: "col-md-9" %>
+            </div>
           </div>
             <%= f.submit "Save", class: "btn btn-primary" %>
         <% end %>
