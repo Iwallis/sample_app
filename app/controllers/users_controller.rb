@@ -27,17 +27,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @flights = @user.flights.paginate(page: params[:page], :per_page => 15)
 
-    @totalSingleDayDual = @user.flights.sum(:day_hours)
-    @totalSingleDayPIC = 0
-    @totalSingleNightDual =  @user.flights.sum(:night_hours)
-    @totalSingleNightPIC = 0
-    @totalMultiDayDual = 0
-    @totalMultiDayPIC = 0
-    @totalMultiNightDual = 0
-    @totalMultiNightPIC = 0
-    @totalIMC = 0
-    @totalHood = 0
-    @totalSim = 0
+
+    # considering how many DB calls i'm making, its probably quicker just to get all flights and provide that to the page
+    @totalSingleDayDual =     @user.flights.where(is_dual: true,  is_single_engine: true).sum(:day_hours)
+    @totalSingleDayPIC =      @user.flights.where(is_dual: false, is_single_engine: true).sum(:day_hours)
+    @totalSingleNightDual =   @user.flights.where(is_dual: true,  is_single_engine: true).sum(:night_hours)
+    @totalSingleNightPIC =    @user.flights.where(is_dual: false, is_single_engine: true).sum(:night_hours)
+    @totalMultiDayDual =      @user.flights.where(is_dual: true,  is_single_engine: false).sum(:day_hours)
+    @totalMultiDayPIC =       @user.flights.where(is_dual: false, is_single_engine: false).sum(:day_hours)
+    @totalMultiNightDual =    @user.flights.where(is_dual: true,  is_single_engine: false).sum(:night_hours)
+    @totalMultiNightPIC =     @user.flights.where(is_dual: false, is_single_engine: false).sum(:night_hours)
+    @totalIMC = @user.flights.sum(:imc_hours)
+    @totalHood = @user.flights.sum(:hood_hours)
+    @totalSim = @user.flights.sum(:sim_hours)
+    @totalAPPR = @user.flights.sum(:ifr_apprs)
+    @totalXCDay = @user.flights.where(is_xc: true).sum(:day_hours)
+    @totalXCNight = @user.flights.where(is_xc: true).sum(:night_hours)
+    @totalFlights = @user.flights.count
 
     @flight = current_user.flights.build
     redirect_to root_url and return unless @user.activated

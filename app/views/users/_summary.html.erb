@@ -6,8 +6,7 @@
         <th class="center" colspan="4">Single Engine</th>
         <th class="center" colspan="4">Multi Engine</th>
         <th class="center" colspan="4">Instrument</th>
-        <th class="center" colspan="3">Cross Country</th>
-        <th class="center" colspan="3"></th>
+        <th class="center" colspan="3">Cross Country</th>        
       </tr>
       <tr>
         <th scope="col" colspan="5">TOTALS</th>
@@ -29,7 +28,6 @@
         <!-- XC -->
         <th class="col">Day</th>
         <th class="col">Night</th>
-        <th class="col" colspan="3"></th>
       </tr>
     </thead>
     <tbody>
@@ -60,13 +58,24 @@
       <td>
         <%= @totalMultiNightDual %>
       </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td colspan="3"></td>
+      <td>
+        <%= @totalHood %>
+      </td>
+      <td>
+        <%= @totalIMC %>
+      </td>
+      <td>
+        <%= @totalSim %>
+      </td>
+      <td>
+        <%= @totalAPPR %>
+      </td>
+      <td>
+        <%= @totalXCDay %>
+      </td>
+      <td>
+        <%= @totalXCNight %>
+      </td>
     </tbody>
   </table>
 <% end %>
