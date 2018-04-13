@@ -26,6 +26,19 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @flights = @user.flights.paginate(page: params[:page], :per_page => 15)
+
+    @totalSingleDayDual = @user.flights.sum(:day_hours)
+    @totalSingleDayPIC = 0
+    @totalSingleNightDual =  @user.flights.sum(:night_hours)
+    @totalSingleNightPIC = 0
+    @totalMultiDayDual = 0
+    @totalMultiDayPIC = 0
+    @totalMultiNightDual = 0
+    @totalMultiNightPIC = 0
+    @totalIMC = 0
+    @totalHood = 0
+    @totalSim = 0
+
     @flight = current_user.flights.build
     redirect_to root_url and return unless @user.activated
     # uncomment below to have a debugging console added when using server

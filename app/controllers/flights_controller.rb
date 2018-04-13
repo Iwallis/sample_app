@@ -18,7 +18,8 @@ class FlightsController < ApplicationController
   end
 
   def destroy
-    @flight = Flight.find(params[:id])
+    @flight = Flight.find(params[:id])    
+
     if current_user == @flight.user
       @flight.destroy
       flash[:success] = "Flight deleted"

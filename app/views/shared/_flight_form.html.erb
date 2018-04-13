@@ -9,64 +9,96 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Add a New Flight</h4>
+        <h2 class="modal-title" id="myModalLabel">Add a New Flight</h2>
       </div>
       <div class="modal-body">
 
         <%= form_for(@flight) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="form-group">
-            <div>
-              <%= f.label :date, class: "col-md-2" %>
-              <%= f.date_field :date, class: "col-md-10" %>              
-
-              <%= f.label :aircraft_type, class: "col-md-2" %>
-              <%= f.text_field :aircraft_type, class: "col-md-4" %>
-
-              <%= f.label :aircraft_ident, class: "col-md-2" %>
-              <%= f.text_field :aircraft_ident, class: "col-md-4" %>
-
-              <%= f.label :pic, class: "col-md-2" %>
-              <%= f.text_field :pic, class: "col-md-4" %>
-
-              <%= f.label :sic, class: "col-md-2" %>
-              <%= f.text_field :sic, class: "col-md-4" %>
-
-              <%= f.label :day_hours, class: "col-md-2" %>
-              <%= f.number_field :day_hours, step: 0.1, class: "col-md-4" %>
-
-              <%= f.label :night_hours, class: "col-md-2" %>
-              <%= f.number_field :night_hours, step: 0.1, class: "col-md-4" %>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <%= f.label :date, class: "col-md-4" %>
+                <%= f.date_field :date, class: "col-md-8" %>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :aircraft_type, class: "col-md-4" %>
+                <%= f.text_field :aircraft_type, class: "col-md-8" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :aircraft_ident, class: "col-md-4" %>
+                <%= f.text_field :aircraft_ident, class: "col-md-8" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :pic, class: "col-md-4" %>
+                <%= f.text_field :pic, class: "col-md-8" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :sic, class: "col-md-4" %>
+                <%= f.text_field :sic, class: "col-md-8" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :day_hours, class: "col-md-4" %>
+                <%= f.number_field :day_hours, step: 0.1, class: "col-md-8" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :night_hours, class: "col-md-4" %>
+                <%= f.number_field :night_hours, step: 0.1, class: "col-md-8" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <%= f.label :imc_hours, class: "col-md-6" %>
+                <%= f.number_field :imc_hours, step: 0.1, class: "col-md-6" %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :hood_hours, class: "col-md-6" %>
+                <%= f.number_field :hood_hours, step: 0.1, class: "col-md-6" %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :sim_hours, class: "col-md-6" %>
+                <%= f.number_field :sim_hours, step: 0.1, class: "col-md-6" %>
+              </div>
             </div>
             <div>
               <hr>
             </div>
-            <div class="cool-rdo col-md-4 border">
-              <%= f.label :is_dual, class: "hidden" %>
-              <%= f.radio_button :is_dual, "true", value: true %>
-              <%= f.label :is_dual_true, "Dual Flight" %>
-              <%= f.radio_button :is_dual, "false", value: false %>
-              <%= f.label :is_dual_false, "Solo Flight" %>
-            </div>
-            <div>
-              <hr>
-            </div>
-            <div class="cool-rdo col-md-4 border">
-              <%= f.label :is_single_engine, class: "hidden" %>
-              <%= f.radio_button :is_single_engine, "true", value: true %>
-              <%= f.label :is_single_engine_true, "Single Engine" %>
-              <%= f.radio_button :is_single_engine, "false", value: false %>
-              <%= f.label :is_single_engine_false, "Multi-Engine" %>
-            </div>
-            <div>
-              <hr>
-            </div>
-            <div class="cool-rdo col-md-4 border">
-              <%= f.label :is_xc, class: "hidden" %>
-              <%= f.radio_button :is_xc, "false", value: false %>
-              <%= f.label :is_xc_false, "Local" %>
-              <%= f.radio_button :is_xc, "true", value: true %>
-              <%= f.label :is_xc_true, "Cross Country" %>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="cool-rdo border">
+                  <%= f.label :is_dual, class: "hidden" %>
+                  <%= f.radio_button :is_dual, "true", value: true %>
+                  <%= f.label :is_dual_true, "Dual Flight" %>
+                  <%= f.radio_button :is_dual, "false", value: false %>
+                  <%= f.label :is_dual_false, "Solo Flight" %>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="cool-rdo border">
+                  <%= f.label :is_single_engine, class: "hidden" %>
+                  <%= f.radio_button :is_single_engine, "true", value: true %>
+                  <%= f.label :is_single_engine_true, "Single Engine" %>
+                  <%= f.radio_button :is_single_engine, "false", value: false %>
+                  <%= f.label :is_single_engine_false, "Multi-Engine" %>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="cool-rdo border">
+                  <%= f.label :is_xc, class: "hidden" %>
+                  <%= f.radio_button :is_xc, "false", value: false %>
+                  <%= f.label :is_xc_false, "Local" %>
+                  <%= f.radio_button :is_xc, "true", value: true %>
+                  <%= f.label :is_xc_true, "Cross Country" %>
+                </div>
+              </div>
             </div>
             <div>
               <hr>

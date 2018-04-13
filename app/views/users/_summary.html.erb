@@ -1,0 +1,72 @@
+<% if @user.flights.any? %>
+  <table class="table .table-sm table-hover table-striped table-bordered table-responsive table-condensed flights" %>
+    <thead>
+      <tr class="header top-header">
+        <th class="center" colspan="5"></th>
+        <th class="center" colspan="4">Single Engine</th>
+        <th class="center" colspan="4">Multi Engine</th>
+        <th class="center" colspan="4">Instrument</th>
+        <th class="center" colspan="3">Cross Country</th>
+        <th class="center" colspan="3"></th>
+      </tr>
+      <tr>
+        <th scope="col" colspan="5">TOTALS</th>
+        <!-- SINGLE ENGINE -->
+        <th scope="col">PIC Day</th>
+        <th scope="col">Dual Day</th>
+        <th scope="col">PIC Night</th>
+        <th scope="col">Dual Night</th>
+        <!-- MULTI ENGINE -->
+        <th scope="col">PIC Day</th>
+        <th scope="col">Dual Day</th>
+        <th scope="col">PIC Night</th>
+        <th scope="col">Dual Night</th>
+        <!-- INSTRUMENT -->
+        <th class="col">Hood</th>
+        <th class="col">IMC</th>
+        <th class="col">Sim</th>
+        <th class="col">IFR Apprs</th>
+        <!-- XC -->
+        <th class="col">Day</th>
+        <th class="col">Night</th>
+        <th class="col" colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <td colspan="5">
+        <!-- can't total up names and stuff... -->
+      </td>
+      <td>
+        <%= @totalSingleDayPIC %>
+      </td>
+      <td>
+        <%= @totalSingleDayDual %>
+      </td>
+      <td>
+        <%= @totalSingleNightPIC %>
+      </td>
+      <td>
+        <%= @totalSingleNightDual %>
+      </td>
+      <td>
+        <%= @totalMultiDayPIC %>
+      </td>
+      <td>
+        <%= @totalMultiDayDual %>
+      </td>
+      <td>
+        <%= @totalMultiNightPIC %>
+      </td>
+      <td>
+        <%= @totalMultiNightDual %>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td colspan="3"></td>
+    </tbody>
+  </table>
+<% end %>
