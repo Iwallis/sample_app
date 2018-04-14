@@ -10,7 +10,7 @@ class Flight < ApplicationRecord
   # validates :day_hours,, :numericality => { :greater_than_or_equal_to => 0}
   # validates :night_hours,, :numericality => { :greater_than_or_equal_to => 0}
   # validates :sim_hours,, :numericality => { :greater_than_or_equal_to => 0}
-  validate :needs_min_hours
+  # validate :needs_min_hours
   validate :not_dual_if_pic
 
   def needs_min_hours
