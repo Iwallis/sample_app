@@ -2,14 +2,15 @@
   <table class="table .table-sm table-hover table-striped table-bordered table-responsive table-condensed flights" %>
     <thead>
       <tr class="header top-header">
-        <th class="center" colspan="5"></th>
-        <th class="center" colspan="4">Single Engine</th>
-        <th class="center" colspan="4">Multi Engine</th>
-        <th class="center" colspan="4">Instrument</th>
-        <th class="center" colspan="3">Cross Country</th>        
+        <th class="center col-sm-3" colspan="5"></th>
+        <th class="center col-sm-2" colspan="4">Total Single Engine</th>
+        <th class="center col-sm-2" colspan="4">Total Multi Engine</th>
+        <th class="center col-sm-1" colspan="4">Total Instrument</th>
+        <th class="center col-sm-1" colspan="2">Total Cross Country</th>
+        <th class="center col-sm-3" colspan="3"></th>
       </tr>
       <tr>
-        <th scope="col" colspan="5">TOTALS</th>
+        <th scope="col" colspan="5">GRAND TOTAL</th>
         <!-- SINGLE ENGINE -->
         <th scope="col">PIC Day</th>
         <th scope="col">Dual Day</th>
@@ -28,11 +29,20 @@
         <!-- XC -->
         <th class="col">Day</th>
         <th class="col">Night</th>
+        <th class="col" colspan="3"></th>
       </tr>
     </thead>
     <tbody>
       <td colspan="5">
-        <!-- can't total up names and stuff... -->
+        <%= @totalSingleDayPIC +
+            @totalSingleDayDual +
+            @totalSingleNightPIC +
+            @totalSingleNightDual +
+            @totalMultiDayPIC +
+            @totalMultiDayDual +
+            @totalMultiNightPIC +
+            @totalMultiNightDual
+        %>
       </td>
       <td>
         <%= @totalSingleDayPIC %>
@@ -76,6 +86,7 @@
       <td>
         <%= @totalXCNight %>
       </td>
+      <td colspan="3"></td>
     </tbody>
   </table>
 <% end %>

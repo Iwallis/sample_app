@@ -75,10 +75,10 @@
               <div class="col-md-4">
                 <div class="cool-rdo border">
                   <%= f.label :is_dual, class: "hidden" %>
-                  <%= f.radio_button :is_dual, "true", value: true %>
-                  <%= f.label :is_dual_true, "Dual Flight" %>
                   <%= f.radio_button :is_dual, "false", value: false %>
                   <%= f.label :is_dual_false, "Solo Flight" %>
+                  <%= f.radio_button :is_dual, "true", value: true %>
+                  <%= f.label :is_dual_true, "Dual Flight" %>
                 </div>
               </div>
               <div class="col-md-4">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204002111) do
+ActiveRecord::Schema.define(version: 20180415214204) do
 
   create_table "flights", force: :cascade do |t|
     t.datetime "date"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20171204002111) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer "license_number"
+    t.string "location"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

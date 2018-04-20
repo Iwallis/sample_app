@@ -1,14 +1,8 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-        <p class="lead smaller"><small> License Number: 999999 </small> </p>
-      </h1>
-    </section>
-  </aside>
+  <div>
+    <%= render 'users/pilotInfo' %>
+  </div>
   <div>
     <%= render 'users/flight_table' %>
     <%= render 'users/summary' %>
@@ -18,4 +12,8 @@
       <%= render 'shared/flight_form' %>
     </section>
   </div>
+  <%= link_to "Download PDF",
+  user_download_path(@user, format: "pdf"),
+  target: "_blank",
+  class: "download" %>
 </div>
