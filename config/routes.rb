@@ -18,8 +18,13 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   post 'flights/action'
+  # get ':users/:id/printer_friendly'
 
-  resources :users
+  resources :users do
+    member do
+      get 'printer_friendly'
+    end
+  end
   # the url the activation email will send
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

@@ -12,8 +12,7 @@
       <%= render 'shared/flight_form' %>
     </section>
   </div>
-  <%= link_to "Download PDF",
-  user_download_path(@user, format: "pdf"),
-  target: "_blank",
-  class: "download" %>
+  <%= link_to "Printer Friendly",
+  printer_friendly_user_path(@user),
+  target: "_blank" %>
 </div>

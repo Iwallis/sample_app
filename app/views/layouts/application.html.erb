@@ -8,15 +8,21 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <% if action_name != "printer_friendly" %>
+      <%= render 'layouts/header' %>
+    <% end %>
     <div class="main-content">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% if action_name != "printer_friendly" %>
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
       <% end %>
       <%= yield %>
     </div>
-    <%= render 'layouts/footer' %>
-    <!-- below displays debug info only if rails is in development mode -->
-    <%= debug(params) if Rails.env.development? %>
+    <% if action_name != "printer_friendly" %>
+      <%= render 'layouts/footer' %>
+      <!-- below displays debug info only if rails is in development mode -->
+      <%= debug(params) if Rails.env.development? %>
+    <% end %>
   </body>
 </html>

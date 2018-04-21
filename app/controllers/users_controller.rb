@@ -79,6 +79,14 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def printer_friendly
+    @user = User.find(params[:id])
+    @flights = @user.flights.all
+
+    redirect_to root_url and return unless @user.activated
+    render "printerFriendly"
+  end
+
   private
     # Before filters
 
