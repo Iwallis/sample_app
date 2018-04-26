@@ -1,8 +1,6 @@
 class Flight < ApplicationRecord
   belongs_to :user
-
-  default_scope -> { order(date: :desc) }
-
+  
   validates :user_id, presence: true
   validates :date, presence: true
   validates :date, inclusion: {in: ->(date) { (Date.today-100.years...Date.today) }}

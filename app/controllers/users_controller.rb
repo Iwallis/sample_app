@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @flights = @user.flights.paginate(page: params[:page], :per_page => 15)
+    @flights = @user.flights.order(date: :desc).paginate(page: params[:page], :per_page => 15)
 
 
     # considering how many DB calls i'm making, its probably quicker just to get all flights and provide that to the page
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
 
   def printer_friendly
     @user = User.find(params[:id])
-    @flights = @user.flights.all
+    @flights = @user.flights.order(date: :asc)
 
     redirect_to root_url and return unless @user.activated
     render "printerFriendly"

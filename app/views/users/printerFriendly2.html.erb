@@ -1,0 +1,86 @@
+<table class="table .table-sm table-hover table-striped table-bordered table-responsive table-condensed flights" %>
+  <thead>
+    <tr class="header top-header">
+      <th class="center col-sm-3" colspan="5"></th>
+      <th class="center col-sm-2" colspan="4">Single Engine</th>
+      <th class="center col-sm-2" colspan="4">Multi Engine</th>
+      <th class="center col-sm-1" colspan="4">Instrument</th>
+      <th class="center col-sm-1" colspan="2">Cross Country</th>
+      <th class="center col-sm-3" colspan="2"></th>
+    </tr>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+      <th scope="col">ident</th>
+      <th scope="col">Pilot In Command</th>
+      <th scope="col">Co-pilot/Student</th>
+      <!-- SINGLE ENGINE -->
+      <th scope="col">PIC Day</th>
+      <th scope="col">Dual Day</th>
+      <th scope="col">PIC Night</th>
+      <th scope="col">Dual Night</th>
+      <!-- MULTI ENGINE -->
+      <th scope="col">PIC Day</th>
+      <th scope="col">Dual Day</th>
+      <th scope="col">PIC Night</th>
+      <th scope="col">Dual Night</th>
+      <!--  -->
+      <th class="col">Hood</th>
+      <th class="col">IMC</th>
+      <th class="col">Sim</th>
+      <th class="col">IFR Apprs</th>
+      <th class="col">Day</th>
+      <th class="col">Night</th>
+      <th class="col">Route</th>
+      <th class="col">Comments</th>
+    </tr>
+</thead>
+<tbody>
+  <% @count = 0 %>
+  <% @processedFlights = Array.new %>
+  <% @flights.each do |flight| %>
+    <% @processedFlights << flight %>
+    <% puts @processedFlights.length %>
+    <tr>
+      <td class="date"><%= flight.date.strftime("%Y/%m/%d") %></td>
+      <td class="aircraft-type"><%= flight.aircraft_type %></td>
+      <td class="aircraft-ident"><%= flight.aircraft_ident %></td>
+      <td class="pic"><%= flight.pic %></td>
+      <td class="sic"><%= flight.sic %></td>
+      <!-- ****** FLIGHT HOURS ****** -->
+          <!-- ****** SINGLE ENGINE ****** -->
+            <!-- ****** DAY PIC ****** -->
+          <td><%= flight.single_engine_day_pic %></td>
+            <!-- ****** DAY DUAL ****** -->
+          <td><%= flight.single_engine_day_dual %></td>
+            <!-- ****** NIGHT PIC ****** -->
+          <td><%= flight.single_engine_night_pic %></td>
+            <!-- ****** NIGHT DUAL ****** -->
+          <td><%= flight.single_engine_night_dual %></td>
+          <!-- ****** MULTI ENGINE ****** -->
+            <!-- ****** DAY PIC ****** -->
+          <td><%= flight.multi_engine_day_pic %></td>
+            <!-- ****** DAY DUAL ****** -->
+          <td><%= flight.multi_engine_day_dual %></td>
+            <!-- ****** NIGHT PIC ****** -->
+          <td><%= flight.multi_engine_night_pic %></td>
+            <!-- ****** NIGHT DUAL ****** -->
+          <td><%= flight.multi_engine_night_dual %></td>
+          <!-- ****** INSTRUMENT ****** -->
+          <td><%= flight.hood_hours %></td>
+          <td><%= flight.imc_hours %></td>
+          <td><%= flight.sim_hours %></td>
+          <td><%= flight.ifr_apprs %></td>
+          <!-- ****** CROSS COUNTRY ****** -->
+          <td><%= flight.is_xc && !flight.day_hours.blank? && flight.day_hours > 0 ? flight.day_hours : "" %></td>
+          <td><%= flight.is_xc && !flight.night_hours.blank? && flight.night_hours > 0 ? flight.night_hours : "" %></td>
+          <td><%= flight.route %></td>
+          <td><%= flight.comments %></td>
+    </tr>
+    <% puts @processedFlights.length % 30 %>
+    <% if @processedFlights.length % 30 == 0 %>
+      <% puts "flights added..." + @processedFlights.length.to_s %>
+      <p style="page-break-before: always"> </P>
+    <% end %>
+  <% end %>
+</tbody>
