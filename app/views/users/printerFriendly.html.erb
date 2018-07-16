@@ -43,19 +43,19 @@
       %>
       <% @currentPageFlights.each do |f| %>
         <%  @currentPageSingleDayDual += f.is_dual && f.is_single_engine && f.day_hours != nil ? f.day_hours : 0
-            @currentPageSingleDayPIC += f.is_dual == false && f.is_single_engine ? f.day_hours : 0
-            @currentPageSingleNightDual += f.is_dual && f.is_single_engine ? f.night_hours : 0
-            @currentPageSingleNightPIC += f.is_dual == false && f.is_single_engine ? f.night_hours : 0
-            @currentPageMultiDayDual += f.is_dual && f.is_single_engine == false ? f.day_hours : 0
-            @currentPageMultiDayPIC += f.is_dual == false && f.is_single_engine == false ? f.day_hours : 0
-            @currentPageMultiNightDual += f.is_dual && f.is_single_engine == false ? f.night_hours : 0
-            @currentPageMultiNightPIC += f.is_dual == false && f.is_single_engine == false ? f.night_hours : 0
+            @currentPageSingleDayPIC += f.is_dual == false && f.is_single_engine && f.day_hours != nil ? f.day_hours : 0
+            @currentPageSingleNightDual += f.is_dual && f.is_single_engine && f.night_hours != nil ? f.night_hours : 0
+            @currentPageSingleNightPIC += f.is_dual == false && f.is_single_engine && f.night_hours != nil ? f.night_hours : 0
+            @currentPageMultiDayDual += f.is_dual && f.is_single_engine == false && f.day_hours != nil ? f.day_hours : 0
+            @currentPageMultiDayPIC += f.is_dual == false && f.is_single_engine == false && f.day_hours != nil ? f.day_hours : 0
+            @currentPageMultiNightDual += f.is_dual && f.is_single_engine == false && f.night_hours != nil ? f.night_hours : 0
+            @currentPageMultiNightPIC += f.is_dual == false && f.is_single_engine == false && f.night_hours != nil ? f.night_hours : 0
             @currentPageIMC += f.imc_hours != nil ? f.imc_hours : 0
             @currentPageHood += f.hood_hours != nil ? f.hood_hours : 0
             @currentPageSim += f.sim_hours != nil ? f.sim_hours : 0
             @currentPageAPPR += f.ifr_apprs != nil ? f.ifr_apprs : 0
-            @currentPageXCDay += f.is_xc ? f.day_hours : 0
-            @currentPageXCNight += f.is_xc ? f.night_hours : 0
+            @currentPageXCDay += f.is_xc && f.day_hours != nil ? f.day_hours : 0
+            @currentPageXCNight += f.is_xc && f.night_hours != nil ? f.night_hours : 0
         %>
       <% end %>
         <table class="table .table-sm table-hover table-striped table-bordered table-condensed flights" %>
