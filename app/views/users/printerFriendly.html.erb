@@ -1,81 +1,354 @@
-<table class="table .table-sm table-hover table-striped table-bordered table-responsive table-condensed flights" %>
-  <thead>
-    <tr class="header top-header">
-      <th class="center col-sm-3" colspan="5"></th>
-      <th class="center col-sm-2" colspan="4">Single Engine</th>
-      <th class="center col-sm-2" colspan="4">Multi Engine</th>
-      <th class="center col-sm-1" colspan="4">Instrument</th>
-      <th class="center col-sm-1" colspan="2">Cross Country</th>
-      <th class="center col-sm-3" colspan="2"></th>
-    </tr>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Type</th>
-      <th scope="col">ident</th>
-      <th scope="col">Pilot In Command</th>
-      <th scope="col">Co-pilot/Student</th>
-      <!-- SINGLE ENGINE -->
-      <th scope="col">PIC Day</th>
-      <th scope="col">Dual Day</th>
-      <th scope="col">PIC Night</th>
-      <th scope="col">Dual Night</th>
-      <!-- MULTI ENGINE -->
-      <th scope="col">PIC Day</th>
-      <th scope="col">Dual Day</th>
-      <th scope="col">PIC Night</th>
-      <th scope="col">Dual Night</th>
-      <!--  -->
-      <th class="col">Hood</th>
-      <th class="col">IMC</th>
-      <th class="col">Sim</th>
-      <th class="col">IFR Apprs</th>
-      <th class="col">Day</th>
-      <th class="col">Night</th>
-      <th class="col">Route</th>
-      <th class="col">Comments</th>
-    </tr>
-</thead>
-<tbody>
-  <% @count = 0 %>
-  <% @flights.each do |flight| %>
-    <tr>
-      <td class="date"><%= flight.date.strftime("%Y/%m/%d") %></td>
-      <td class="aircraft-type"><%= flight.aircraft_type %></td>
-      <td class="aircraft-ident"><%= flight.aircraft_ident %></td>
-      <td class="pic"><%= flight.pic %></td>
-      <td class="sic"><%= flight.sic %></td>
-      <!-- ****** FLIGHT HOURS ****** -->
-          <!-- ****** SINGLE ENGINE ****** -->
-            <!-- ****** DAY PIC ****** -->
-          <td><%= flight.single_engine_day_pic %></td>
-            <!-- ****** DAY DUAL ****** -->
-          <td><%= flight.single_engine_day_dual %></td>
-            <!-- ****** NIGHT PIC ****** -->
-          <td><%= flight.single_engine_night_pic %></td>
-            <!-- ****** NIGHT DUAL ****** -->
-          <td><%= flight.single_engine_night_dual %></td>
-          <!-- ****** MULTI ENGINE ****** -->
-            <!-- ****** DAY PIC ****** -->
-          <td><%= flight.multi_engine_day_pic %></td>
-            <!-- ****** DAY DUAL ****** -->
-          <td><%= flight.multi_engine_day_dual %></td>
-            <!-- ****** NIGHT PIC ****** -->
-          <td><%= flight.multi_engine_night_pic %></td>
-            <!-- ****** NIGHT DUAL ****** -->
-          <td><%= flight.multi_engine_night_dual %></td>
-          <!-- ****** INSTRUMENT ****** -->
-          <td><%= flight.hood_hours %></td>
-          <td><%= flight.imc_hours %></td>
-          <td><%= flight.sim_hours %></td>
-          <td><%= flight.ifr_apprs %></td>
-          <!-- ****** CROSS COUNTRY ****** -->
-          <td><%= flight.is_xc && !flight.day_hours.blank? && flight.day_hours > 0 ? flight.day_hours : "" %></td>
-          <td><%= flight.is_xc && !flight.night_hours.blank? && flight.night_hours > 0 ? flight.night_hours : "" %></td>
-          <td><%= flight.route %></td>
-          <td><%= flight.comments %></td>
-    </tr>
-    <% if @count % 30 == 0 && @count != 0 %>
-      <p style="page-break-before: always"> </P>
-    <% end %>
+<% @processedFlights = Array.new %>
+<%
+  @currentPageFlights = Array.new
+  @totalSingleDayPIC = 0
+  @totalSingleDayDual = 0
+  @totalSingleNightPIC = 0
+  @totalSingleNightDual = 0
+  @totalMultiDayPIC = 0
+  @totalMultiDayDual = 0
+  @totalMultiNightPIC = 0
+  @totalMultiNightDual = 0
+  @totalHood = 0
+  @totalIMC = 0
+  @totalSim = 0
+  @totalAPPR = 0
+  @totalXCDay = 0
+  @totalXCNight = 0
+%>
+
+<% @flights.each do |flight| %>
+  <!-- if the current flight is the first or the 31st flight then end current table, summarize, and start a new table -->
+  <% if @processedFlights.length % 20 == 0 || @processedFlights.length == 0 %>
+    <% puts "end of page, summarizing " + @currentPageFlights.length.to_s + " flights..." %>
+    <% if @processedFlights.length != 0 %>
+      <!-- end current table -->
+        </tbody>
+      </table>
+      <!-- totals table -->
+      <%  @currentPageSingleDayDual =     0
+          @currentPageSingleDayPIC =      0
+          @currentPageSingleNightDual =   0
+          @currentPageSingleNightPIC =    0
+          @currentPageMultiDayDual =      0
+          @currentPageMultiDayPIC =       0
+          @currentPageMultiNightDual =    0
+          @currentPageMultiNightPIC =     0
+          @currentPageIMC = 0
+          @currentPageHood = 0
+          @currentPageSim = 0
+          @currentPageAPPR = 0
+          @currentPageXCDay = 0
+          @currentPageXCNight = 0
+      %>
+      <% @currentPageFlights.each do |f| %>
+        <%  @currentPageSingleDayDual += f.is_dual && f.is_single_engine && f.day_hours != nil ? f.day_hours : 0
+            @currentPageSingleDayPIC += f.is_dual == false && f.is_single_engine ? f.day_hours : 0
+            @currentPageSingleNightDual += f.is_dual && f.is_single_engine ? f.night_hours : 0
+            @currentPageSingleNightPIC += f.is_dual == false && f.is_single_engine ? f.night_hours : 0
+            @currentPageMultiDayDual += f.is_dual && f.is_single_engine == false ? f.day_hours : 0
+            @currentPageMultiDayPIC += f.is_dual == false && f.is_single_engine == false ? f.day_hours : 0
+            @currentPageMultiNightDual += f.is_dual && f.is_single_engine == false ? f.night_hours : 0
+            @currentPageMultiNightPIC += f.is_dual == false && f.is_single_engine == false ? f.night_hours : 0
+            @currentPageIMC += f.imc_hours != nil ? f.imc_hours : 0
+            @currentPageHood += f.hood_hours != nil ? f.hood_hours : 0
+            @currentPageSim += f.sim_hours != nil ? f.sim_hours : 0
+            @currentPageAPPR += f.ifr_apprs != nil ? f.ifr_apprs : 0
+            @currentPageXCDay += f.is_xc ? f.day_hours : 0
+            @currentPageXCNight += f.is_xc ? f.night_hours : 0
+        %>
+      <% end %>
+        <table class="table .table-sm table-hover table-striped table-bordered table-condensed flights" %>
+        <thead>
+          <tr class="header top-header">
+            <th class="center col-sm-3" colspan="5"></th>
+            <th class="center col-sm-2" colspan="4">Total Single Engine</th>
+            <th class="center col-sm-2" colspan="4">Total Multi Engine</th>
+            <th class="center col-sm-1" colspan="4">Total Instrument</th>
+            <th class="center col-sm-1" colspan="2">Total Cross Country</th>
+            <th class="center col-sm-3" colspan="2"></th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="5">GRAND TOTAL: <%=  @totalSingleDayPIC +
+                                                          @totalSingleDayDual +
+                                                          @totalSingleNightPIC +
+                                                          @totalSingleNightDual +
+                                                          @totalMultiDayPIC +
+                                                          @totalMultiDayDual +
+                                                          @totalMultiNightPIC +
+                                                          @totalMultiNightDual +
+                                                          @currentPageSingleDayPIC +
+                                                          @currentPageSingleDayDual +
+                                                          @currentPageSingleNightPIC +
+                                                          @currentPageSingleNightDual +
+                                                          @currentPageMultiDayPIC +
+                                                          @currentPageMultiDayDual +
+                                                          @currentPageMultiNightPIC +
+                                                          @currentPageMultiNightDual
+                                                      %>
+            </th>
+            <!-- SINGLE ENGINE -->
+            <th scope="col">PIC Day</th>
+            <th scope="col">Dual Day</th>
+            <th scope="col">PIC Night</th>
+            <th scope="col">Dual Night</th>
+            <!-- MULTI ENGINE -->
+            <th scope="col">PIC Day</th>
+            <th scope="col">Dual Day</th>
+            <th scope="col">PIC Night</th>
+            <th scope="col">Dual Night</th>
+            <!-- INSTRUMENT -->
+            <th class="col">Hood</th>
+            <th class="col">IMC</th>
+            <th class="col">Sim</th>
+            <th class="col">IFR Apprs</th>
+            <!-- XC -->
+            <th class="col">Day</th>
+            <th class="col">Night</th>
+            <th class="col" colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="3"></td>
+            <td colspan="2"> From This Page</td>
+            <td>
+              <% @currrentPageSingleDayPIC %>
+            </td>
+            <td>
+              <%= @currrentPageSingleDayDual %>
+            </td>
+            <td>
+              <%= @currrentPageSingleNightPIC %>
+            </td>
+            <td>
+              <%= @currrentPageSingleNightDual %>
+            </td>
+            <td>
+              <%= @currrentPageMultiDayPIC %>
+            </td>
+            <td>
+              <%= @currrentPageMultiDayDual %>
+            </td>
+            <td>
+              <%= @currrentPageMultiNightPIC %>
+            </td>
+            <td>
+              <%= @currrentPageMultiNightDual %>
+            </td>
+            <td>
+              <%= @currentPageHood %>
+            </td>
+            <td>
+              <%= @currrentPageIMC %>
+            </td>
+            <td>
+              <%= @currrentPageSim %>
+            </td>
+            <td>
+              <%= @currrentPageAPPR %>
+            </td>
+            <td>
+              <%= @currrentPageXCDay %>
+            </td>
+            <td>
+              <%= @currrentPageXCNight %>
+            </td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2"> From Previous Page</td>
+            <td>
+              <%= @totalSingleDayPIC %>
+            </td>
+            <td>
+              <%= @totalSingleDayDual %>
+            </td>
+            <td>
+              <%= @totalSingleNightPIC %>
+            </td>
+            <td>
+              <%= @totalSingleNightDual %>
+            </td>
+            <td>
+              <%= @totalMultiDayPIC %>
+            </td>
+            <td>
+              <%= @totalMultiDayDual %>
+            </td>
+            <td>
+              <%= @totalMultiNightPIC %>
+            </td>
+            <td>
+              <%= @totalMultiNightDual %>
+            </td>
+            <td>
+              <%= @totalHood %>
+            </td>
+            <td>
+              <%= @totalIMC %>
+            </td>
+            <td>
+              <%= @totalSim %>
+            </td>
+            <td>
+              <%= @totalAPPR %>
+            </td>
+            <td>
+              <%= @totalXCDay %>
+            </td>
+            <td>
+              <%= @totalXCNight %>
+            </td>
+            <td colspan="2"></td>
+          </tr>
+          <%
+              @totalSingleDayPIC +=  @currentPageSingleDayPIC != nil ? @currentPageSingleDayPIC : 0
+              @totalSingleDayDual += @currentPageSingleDayDual != nil ? @currentPageSingleDayDual : 0
+              @totalSingleNightPIC += @currentPageSingleNightPIC != nil ? @currentPageSingleNightPIC : 0
+              @totalSingleNightDual += @currentPageSingleNightDual != nil ? @currentPageSingleNightDual : 0
+              @totalMultiDayPIC += @currentPageMultiDayPIC != nil ? @currentPageMultiDayPIC : 0
+              @totalMultiDayDual += @currentPageMultiDayDual  != nil ? @currentPageMultiDayDual : 0
+              @totalMultiNightPIC += @currentPageMultiNightPIC != nil ? @currentPageMultiNightPIC : 0
+              @totalMultiNightDual += @currentPageMultiNightDual != nil ? @currentPageMultiNightDual : 0
+              @totalHood += @currentPageHood != nil ? @currentPageHood : 0
+              @totalIMC += @currentPageIMC != nil ? @currentPageIMC : 0
+              @totalSim += @currentPageSim != nil ? @currentPageSim : 0
+              @totalAPPR += @currentPageAPPR != nil ? @currentPageAPPR : 0
+              @totalXCDay += @currentPageXCDay != nil ? @currentPageXCDay : 0
+              @totalXCNight += @currentPageXCNight != nil ? @currentPageXCNight : 0
+          %>
+          <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2"> total to date</td>
+            <td>
+              <%= @totalSingleDayPIC %>
+            </td>
+            <td>
+              <%= @totalSingleDayDual %>
+            </td>
+            <td>
+              <%= @totalSingleNightPIC %>
+            </td>
+            <td>
+              <%= @totalSingleNightDual %>
+            </td>
+            <td>
+              <%= @totalMultiDayPIC %>
+            </td>
+            <td>
+              <%=  @totalMultiDayDual %>
+            </td>
+            <td>
+              <%= @totalMultiNightPIC %>
+            </td>
+            <td>
+              <%= @totalMultiNightDual %>
+            </td>
+            <td>
+              <%= @totalHood %>
+            </td>
+            <td>
+              <%= @totalIMC %>
+            </td>
+            <td>
+              <%= @totalSim %>
+            </td>
+            <td>
+              <%= @totalAPPR %>
+            </td>
+            <td>
+              <%= @totalXCDay %>
+            </td>
+            <td>
+              <%= @totalXCNight %>
+            </td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+      <% @CurrentPageFlights = @currentPageFlights.clear %>
+      <% end %>
+    <p style="page-break-before: always"> </P>
+    <!-- start next page -->
+    <table class="table .table-sm table-hover table-striped table-bordered table-condensed flights" %>
+      <thead>
+        <tr class="header top-header">
+          <th class="center col-sm-3" colspan="5"></th>
+          <th class="center col-sm-2" colspan="4">Single Engine</th>
+          <th class="center col-sm-2" colspan="4">Multi Engine</th>
+          <th class="center col-sm-1" colspan="4">Instrument</th>
+          <th class="center col-sm-1" colspan="2">Cross Country</th>
+          <th class="center col-sm-3" colspan="2"></th>
+        </tr>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Type</th>
+          <th scope="col">ident</th>
+          <th scope="col">Pilot In Command</th>
+          <th scope="col">Co-pilot/Student</th>
+          <!-- SINGLE ENGINE -->
+          <th scope="col">PIC Day</th>
+          <th scope="col">Dual Day</th>
+          <th scope="col">PIC Night</th>
+          <th scope="col">Dual Night</th>
+          <!-- MULTI ENGINE -->
+          <th scope="col">PIC Day</th>
+          <th scope="col">Dual Day</th>
+          <th scope="col">PIC Night</th>
+          <th scope="col">Dual Night</th>
+          <!--  -->
+          <th class="col">Hood</th>
+          <th class="col">IMC</th>
+          <th class="col">Sim</th>
+          <th class="col">IFR Apprs</th>
+          <th class="col">Day</th>
+          <th class="col">Night</th>
+          <th class="col">Route</th>
+          <th class="col">Comments</th>
+        </tr>
+    </thead>
+    <tbody>
   <% end %>
-</tbody>
+      <tr>
+        <td class="date"><%= flight.date.strftime("%Y/%m/%d") %></td>
+        <td class="aircraft-type"><%= flight.aircraft_type %></td>
+        <td class="aircraft-ident"><%= flight.aircraft_ident %></td>
+        <td class="pic"><%= flight.pic %></td>
+        <td class="sic"><%= flight.sic %></td>
+        <!-- ****** FLIGHT HOURS ****** -->
+            <!-- ****** SINGLE ENGINE ****** -->
+              <!-- ****** DAY PIC ****** -->
+            <td><%= flight.single_engine_day_pic %></td>
+              <!-- ****** DAY DUAL ****** -->
+            <td><%= flight.single_engine_day_dual %></td>
+              <!-- ****** NIGHT PIC ****** -->
+            <td><%= flight.single_engine_night_pic %></td>
+              <!-- ****** NIGHT DUAL ****** -->
+            <td><%= flight.single_engine_night_dual %></td>
+            <!-- ****** MULTI ENGINE ****** -->
+              <!-- ****** DAY PIC ****** -->
+            <td><%= flight.multi_engine_day_pic %></td>
+              <!-- ****** DAY DUAL ****** -->
+            <td><%= flight.multi_engine_day_dual %></td>
+              <!-- ****** NIGHT PIC ****** -->
+            <td><%= flight.multi_engine_night_pic %></td>
+              <!-- ****** NIGHT DUAL ****** -->
+            <td><%= flight.multi_engine_night_dual %></td>
+            <!-- ****** INSTRUMENT ****** -->
+            <td><%= flight.hood_hours %></td>
+            <td><%= flight.imc_hours %></td>
+            <td><%= flight.sim_hours %></td>
+            <td><%= flight.ifr_apprs %></td>
+            <!-- ****** CROSS COUNTRY ****** -->
+            <td><%= flight.is_xc && !flight.day_hours.blank? && flight.day_hours > 0 ? flight.day_hours : "" %></td>
+            <td><%= flight.is_xc && !flight.night_hours.blank? && flight.night_hours > 0 ? flight.night_hours : "" %></td>
+            <td><%= flight.route %></td>
+            <td><%= flight.comments %></td>
+          </tr>
+          <% @processedFlights << flight %>
+          <% @currentPageFlights << flight %>
+<% end %>
