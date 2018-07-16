@@ -18,7 +18,7 @@
 %>
 
 <% @flights.each do |flight| %>
-  <!-- if the current flight is the first or the 31st flight then end current table, summarize, and start a new table -->
+  <!-- if the current flight is the first or divisible by 20 then end current table, summarize, and start a new table -->
   <% if @processedFlights.length % 20 == 0 || @processedFlights.length == 0 %>
     <% puts "end of page, summarizing " + @currentPageFlights.length.to_s + " flights..." %>
     <% if @processedFlights.length != 0 %>
@@ -112,47 +112,47 @@
           <tr>
             <td colspan="3"></td>
             <td colspan="2"> From This Page</td>
-            <td>
-              <% @currrentPageSingleDayPIC %>
+            <td colspan="1">              
+              <%= @currentPageSingleDayPIC %>
             </td>
-            <td>
-              <%= @currrentPageSingleDayDual %>
+            <td colspan="1">
+              <%= @currentPageSingleDayDual %>
             </td>
-            <td>
-              <%= @currrentPageSingleNightPIC %>
+            <td colspan="1">
+              <%= @currentPageSingleNightPIC %>
             </td>
-            <td>
-              <%= @currrentPageSingleNightDual %>
+            <td colspan="1">
+              <%= @currentPageSingleNightDual %>
             </td>
-            <td>
-              <%= @currrentPageMultiDayPIC %>
+            <td colspan="1">
+              <%= @currentPageMultiDayPIC %>
             </td>
-            <td>
-              <%= @currrentPageMultiDayDual %>
+            <td colspan="1">
+              <%= @currentPageMultiDayDual %>
             </td>
-            <td>
-              <%= @currrentPageMultiNightPIC %>
+            <td colspan="1">
+              <%= @currentPageMultiNightPIC %>
             </td>
-            <td>
-              <%= @currrentPageMultiNightDual %>
+            <td colspan="1">
+              <%= @currentPageMultiNightDual %>
             </td>
-            <td>
+            <td colspan="1">
               <%= @currentPageHood %>
             </td>
-            <td>
-              <%= @currrentPageIMC %>
+            <td colspan="1">
+              <%= @currentPageIMC %>
             </td>
-            <td>
-              <%= @currrentPageSim %>
+            <td colspan="1">
+              <%= @currentPageSim %>
             </td>
-            <td>
-              <%= @currrentPageAPPR %>
+            <td colspan="1">
+              <%= @currentPageAPPR %>
             </td>
-            <td>
-              <%= @currrentPageXCDay %>
+            <td colspan="1">
+              <%= @currentPageXCDay %>
             </td>
-            <td>
-              <%= @currrentPageXCNight %>
+            <td colspan="1">
+              <%= @currentPageXCNight %>
             </td>
             <td colspan="2"></td>
           </tr>
